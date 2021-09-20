@@ -144,19 +144,20 @@ namespace MatrixCalc
                 return new Matrix();
 
             if (rows == 1)
-                return new Matrix(1, 1, 1); 
-            int s = 1,
-            t[N][N];
-            for (int i = 0; i < N; i++)
+                return new Matrix(1, 1, 1.0f);
+
+            int sign;
+            Matrix result = new Matrix(rows);
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < N; j++)
+                for (int j = 0; j < columns; j++)
                 {
-                    //To get cofactor of M[i][j]
-                    getCfactor(M, t, i, j, N);
-                    s = ((i + j) % 2 == 0) ? 1 : -1; //sign of adj[j][i] positive if sum of row and column indexes is even.
-                    adj[j][i] = (s) * (DET(t, N - 1)); //Interchange rows and columns to get the transpose of the cofactor matrix
+                    sign = ((i + j) % 2 == 0) ? 1 : -1; // The sign of value in (i, j) positive if sum of row and column indexes is even.
+                    result.data[j, i] = sign * GetCofactor(i, j).GetDeterminant(); // Interchange rows and columns to get the transpose of the cofactor matrix
                 }
             }
+
+            return result;
         }
 
         public Matrix GetInvertedUsingAdjointMaethod()
