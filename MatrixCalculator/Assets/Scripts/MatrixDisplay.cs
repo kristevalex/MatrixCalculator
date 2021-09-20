@@ -34,9 +34,9 @@ public class MatrixDisplay : MatrixUI
                 matrixCells[i, j].text = matrix.data[i, j].ToString();
     }
 
-    void UpdateMatrix(MatrixCalc.Matrix _matrix)
+    override public void ResizeMatrix(int rows, int colomns)
     {
-        matrix = _matrix;
+        matrix = new MatrixCalc.Matrix(rows, colomns);
 
         foreach (Transform child in forCells.transform)
             GameObject.Destroy(child.gameObject);
@@ -61,6 +61,15 @@ public class MatrixDisplay : MatrixUI
             }
         }
 
+        UpdateDisplay();
+    }
+
+    override public void UpdateMatrix(MatrixCalc.Matrix _matrix)
+    {
+        if (matrix.rows != _matrix.rows || matrix.columns != _matrix.columns)
+            return;
+
+        matrix = _matrix;
         UpdateDisplay();
     }
 }
