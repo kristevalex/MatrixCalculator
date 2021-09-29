@@ -67,7 +67,7 @@ public abstract class MatrixUI : MonoBehaviour
 
     public void SetMatrixValue(MatrixCalc.Matrix _matrix)
     {
-        if (matrix.rows != _matrix.rows || matrix.columns != _matrix.columns)
+        if (matrix == null || matrix.rows != _matrix.rows || matrix.columns != _matrix.columns)
             ResizeMatrix(_matrix.rows, _matrix.columns);
 
         matrix = _matrix;
